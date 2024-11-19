@@ -1,0 +1,63 @@
+<div class="card">
+  @if(medecin){
+  {{ medecin.nom }}
+  {{ medecin.prenom }}
+  {{ medecin.adresse }}
+  <div class="rapports">
+    @if(rapports) {
+    <table>
+      <thead>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Date</th>
+        <th>Bilan</th>
+        <th>Motif</th>
+      </thead>
+      <tbody>
+        @for(rapport of rapports; track $index) {
+        <tr>
+          <td>
+            {{ rapport.nom }}
+          </td>
+          <td>
+            {{ rapport.prenom }}
+          </td>
+          <td>
+            {{ rapport.date }}
+          </td>
+          <td>
+            {{ rapport.bilan }}
+          </td>
+          <td>
+            {{ rapport.motif }}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    } @else{
+    <p>Aucun rapport trouvé</p>
+    }
+  </div>
+  } @else(){
+  <p>Aucun médecin trouvé</p>
+  }
+  <form [formGroup]="rapportVisiteForm" ngSubmit="onSubmit()">
+    <label for="Nom">Nom</label>
+    <input type="text" formControlName="nom" id="nom" name="nom" />
+
+    <label for="Prénom">Prénom</label>
+    <input type="text" formControlName="prenom" id="prenom" name="prenom" />
+
+    <label for="Date">Date</label>
+    <input type="date" formControlName="date" id="date" name="date" />
+
+    <label for="Bilan">Bilan</label>
+    <textarea formControlName="bilan" id="bilan" name="bilan"></textarea>
+
+    <label for="Motif">Motif</label>
+    <input type="text" formControlName="motif" id="motif" name="motif" />
+
+    <button type="submit">Ajouter</button>
+  </form>
+</div>

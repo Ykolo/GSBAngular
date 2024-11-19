@@ -1,0 +1,23 @@
+<nav>
+  <ul>
+    <li class="logo">GSB</li>
+    <li>Liste des médecins</li>
+    <li>Mes visites</li>
+  </ul>
+</nav>
+
+<section>
+  <div class="search-bar">
+    <app-filter (searchDoctor)="searchDoctor($any($event))" />
+    @if(filteredMedecins){
+    <span class="reponse">{{ filteredMedecins.length }} Résultat(s)</span>}
+  </div>
+</section>
+<section class="card-section">
+  <div class="card-grid">
+    @for (medecin of filteredMedecins; track $index){ @if($index < 12) {
+    <a [routerLink]="['/medecin', medecin.id]">
+      <app-doctor [doctor]="medecin"></app-doctor> </a
+    >} }
+  </div>
+</section>

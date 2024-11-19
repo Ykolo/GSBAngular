@@ -1,0 +1,31 @@
+.card {
+  width: 25rem;
+  border: 1px solid #c1c1c1;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 2.5rem;
+      height: 1.5rem;
+      margin-right: 1rem;
+    }
+  }
+  p {
+    width: fit-content;
+  }
+  p:nth-child(1) {
+    font-weight: bold;
+  }
+  p:nth-child(2) {
+    margin: -0.5rem 0 2rem;
+  }
+  a {
+    color: #000;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+  }
+}
