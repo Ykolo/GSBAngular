@@ -27,7 +27,9 @@ export class DetailMedecinComponent {
   rapports: RapportVisite[] = [];
 
   rapportVisiteForm = new FormGroup({
-    date: new FormControl<string | null>(null, Validators.required),
+    nom: new FormControl<string | null>(null, Validators.required),
+    prenom: new FormControl<string | null>(null, Validators.required),
+    date: new FormControl<string | Date | null>(null, Validators.required),
     motif: new FormControl<string | null>(null, Validators.required),
     bilan: new FormControl<string | null>(null, Validators.required),
     visiteur: new FormControl<string | null>(null, Validators.required),
@@ -71,8 +73,33 @@ export class DetailMedecinComponent {
   }
   onSubmit(): void {
     if (this.rapportVisiteForm.valid) {
-      const newRapport = this.rapportVisiteForm.value;
+      const formValue = this.rapportVisiteForm.value;
+      console.log('formValue: ', formValue);
+      const newRapprort: RapportVisite = {
+        ...formValue,
+        idVisiteur: 'f86',
+        idMedecin: Number(this.id),
+      } as RapportVisite;
+
+      this.doctorsService.addRapportVisite(newRapprort).subscribe({
+        next: (result) => {
+          console.log('Rapport ajouté: ', result);
+          this.rapports.push(result);
+          this.rapportVisiteForm.reset();
+        },
+        error: (error) => {
+          console.error('Erreur: ', error);
+        },
+      });
+    } else {
+      console.log('Formulaire invalide:', this.rapportVisiteForm.value);
+
+      Object.keys(this.rapportVisiteForm.controls).forEach((controlName) => {
+        const control = this.rapportVisiteForm.get(controlName);
+        if (control && control.invalid) {
+          console.log(`${controlName} - Erreurs:`, control.errors);
+        }
+      });
     }
-    console.log(this.rapportVisiteForm.value);
   }
 }

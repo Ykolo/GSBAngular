@@ -1,17 +1,29 @@
-<div class="card">
+<nav>
+  <ul>
+    <li class="logo">GSB</li>
+    <li>Liste des médecins</li>
+    <li>Mes visites</li>
+  </ul>
+</nav>
+<section class="cardDM">
   @if(medecin){
-  {{ medecin.nom }}
-  {{ medecin.prenom }}
-  {{ medecin.adresse }}
+  <h1>Détails du médecin:</h1>
+  <div>
+    -{{ medecin.nom }} {{ medecin.prenom }}<br />
+    -{{ medecin.adresse }}
+  </div>
   <div class="rapports">
     @if(rapports) {
+    <h1>Rapport(s):</h1>
     <table>
       <thead>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Date</th>
-        <th>Bilan</th>
-        <th>Motif</th>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Date</th>
+          <th>Bilan</th>
+          <th>Motif</th>
+        </tr>
       </thead>
       <tbody>
         @for(rapport of rapports; track $index) {
@@ -41,23 +53,30 @@
   </div>
   } @else(){
   <p>Aucun médecin trouvé</p>
-  }
-  <form [formGroup]="rapportVisiteForm" ngSubmit="onSubmit()">
-    <label for="Nom">Nom</label>
-    <input type="text" formControlName="nom" id="nom" name="nom" />
-
-    <label for="Prénom">Prénom</label>
-    <input type="text" formControlName="prenom" id="prenom" name="prenom" />
+  } @if(medecin){
+  <form [formGroup]="rapportVisiteForm" (ngSubmit)="onSubmit()">
+    <h1>Ajouter un rapport de visite:</h1>
+    <div class="name">
+      <div class="lastname">
+        <label for="Nom">Nom</label>
+        <input type="text" formControlName="nom" id="nom" name="nom" />
+      </div>
+      <div class="firstname">
+        <label for="Prénom">Prénom</label>
+        <input type="text" formControlName="prenom" id="prenom" name="prenom" />
+      </div>
+    </div>
 
     <label for="Date">Date</label>
     <input type="date" formControlName="date" id="date" name="date" />
 
     <label for="Bilan">Bilan</label>
-    <textarea formControlName="bilan" id="bilan" name="bilan"></textarea>
+    <input formControlName="bilan" id="bilan" name="bilan" />
 
     <label for="Motif">Motif</label>
     <input type="text" formControlName="motif" id="motif" name="motif" />
 
     <button type="submit">Ajouter</button>
   </form>
-</div>
+  }
+</section>

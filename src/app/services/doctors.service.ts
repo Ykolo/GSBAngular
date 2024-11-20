@@ -26,9 +26,13 @@ export class DoctorsService {
     );
   }
   addRapportVisite(rapportVisite: RapportVisite): Observable<RapportVisite> {
-    return this.httpClient.post<RapportVisite>(
-      'http://localhost/restgsb/rapports',
-      rapportVisite
-    );
+    const url = `http://localhost/restgsb/nouveaurapport?idVisiteur=${
+      rapportVisite.idVisiteur
+    }&idMedecin=${rapportVisite.idMedecin}&motif=${encodeURIComponent(
+      rapportVisite.motif
+    )}&bilan=${encodeURIComponent(rapportVisite.bilan)}&date=${
+      rapportVisite.date
+    }&medicaments=${rapportVisite.medicaments}`;
+    return this.httpClient.get<RapportVisite>(url);
   }
 }

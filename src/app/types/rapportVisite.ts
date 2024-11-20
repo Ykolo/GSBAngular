@@ -1,9 +1,10 @@
 export interface RapportVisite {
-  idVisiteur: number;
+  idVisiteur: string;
   idMedecin: number;
-  nom: string;
-  prenom: string;
-  date: string;
+  nom?: string;
+  prenom?: string;
+  date?: string | Date;
   motif: string;
   bilan: string;
+  medicaments?: string | null;
 }
